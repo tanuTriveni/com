@@ -1,0 +1,24 @@
+1A. Program For converting all small case letters to UPPER case letters and Vice-Versa.
+
+1 B. Program to count the words, spaces, and lines in a given input file. 
+
+2A. LEX program to eliminate comment lines (Single and Multiple) in a text(C program)  file and copy the resulting program into a separate file.  
+
+2B. YACC program to recognize valid identifier, operators and keywords in the given text  (C program) file. 
+
+3A Develop a LEX program to recognize valid arithmetic expression. Identifiers in the expression
+could be only integers and operators could be + and *. Count the identifiers & operators
+present and print them separately.
+
+3B. Develop a YACC program to evaluate arithmetic expression involving operators: +, -, *, and /.
+
+4  Develop, Implement and execute a program using YACC/Bison tool to recognize all strings
+ending with b preceded by n a’s using the grammar a n b (note: input n value), also create DFA
+of given grammar using JFLAP
+
+5 Develop a program to find FIRST and FOLLOW of all variables. Write a suitable data structure to
+store a context fee grammar. Prerequisite is to eliminate left recursion from the grammar
+before storing.
+
+Steps for the ll1 
+
