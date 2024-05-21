@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Structure to represent a three-address instruction
+typedef struct {
+    char result[20];
+    char arg1[20];
+    char op[5];
+    char arg2[20];
+} ThreeAddressInstruction;
+
+// Function to generate assembly code from three-address instructions
+void generateAssembly(ThreeAddressInstruction *instructions, int numInstructions) {
+    printf(".data\n");
+    printf("result: .word 0\n"); // Data section for storing result
+    printf(".text\n");
+    printf(".globl main\n");
+    printf("main:\n");
+
+    for (int i = 0; i < numInstructions; i++) {
+        ThreeAddressInstruction inst = instructions[i];
+
+        // Handle different operations
+        if (strcmp(inst.op, "+") == 0) {
+            printf("    movl %s, %%eax\n", inst.arg1);
+            printf("    addl %s, %%eax\n", inst.arg2);
+            printf("    movl %%eax, %s\n", inst.result);
+        } else if (strcmp(inst.op, "-") == 0) {
+            printf("    movl %s, %%eax\n", inst.arg1);
+            printf("    subl %s, %%eax\n", inst.arg2);
+            printf("    movl %%eax, %s\n", inst.result);
+        } else if (strcmp(inst.op, "*") == 0) {
+            printf("    movl %s, %%eax\n", inst.arg1);
+            printf("    imull %s, %%eax\n", inst.arg2);
+            printf("    movl %%eax, %s\n", inst.result);
+        } else if (strcmp(inst.op, "/") == 0) {
+            printf("    movl %s, %%eax\n", inst.arg1);
+            printf("    cltd\n");
+            printf("    idivl %s\n", inst.arg2);
+            printf("    movl %%eax, %s\n", inst.result);
+        } else {
+            printf("    // Unsupported operation: %s\n", inst.op);
+        }
+    }
+
+    printf("    ret\n");
+}
+
+int main() {
+    int numInstructions;
+    printf("Enter the number of three-address instructions: ");
+    scanf("%d", &numInstructions);
+
+    ThreeAddressInstruction *instructions = (ThreeAddressInstruction *)malloc(numInstructions * sizeof(ThreeAddressInstruction));
+
+    // Prompt the user to enter each instruction
+    for (int i = 0; i < numInstructions; i++) {
+        printf("Enter three-address instruction %d (in the format 'result = arg1 op arg2'): ", i + 1);
+        scanf("%s = %s %s %s", instructions[i].result, instructions[i].arg1, instructions[i].op, instructions[i].arg2);
+    }
+
+    // Generate assembly code
+    generateAssembly(instructions, numInstructions);
+
+    free(instructions);
+    return 0;
+}
