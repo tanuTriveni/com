@@ -1,0 +1,68 @@
+
+
+Router>
+Router>en
+Router#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname dhcp-server
+dhcp-server(config)#
+dhcp-server(config)#
+dhcp-server(config)#interface GigabitEthernet0/0
+dhcp-server(config-if)#ip add 192.168.10.1 255.255.255.0
+dhcp-server(config-if)#no sh
+
+dhcp-server(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+
+dhcp-server(config-if)#exit
+dhcp-server(config)#
+dhcp-server(config)#
+dhcp-server(config)#interface GigabitEthernet0/0
+dhcp-server(config-if)#
+dhcp-server(config-if)#exit
+dhcp-server(config)#interface GigabitEthernet0/1
+dhcp-server(config-if)#ip add 192.168.20.1 255.255.255.0
+dhcp-server(config-if)#no sh
+
+dhcp-server(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+
+dhcp-server(config-if)#
+dhcp-server(config-if)#exit
+dhcp-server(config)#do sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol 
+GigabitEthernet0/0     192.168.10.1    YES manual up                    up 
+GigabitEthernet0/1     192.168.20.1    YES manual up                    up 
+Vlan1                  unassigned      YES unset  administratively down down
+dhcp-server(config)#ip dhcp pool 192.168.10.1
+dhcp-server(dhcp-config)#exit
+dhcp-server(config)#ip excluded-address 192.168.10.1
+                       ^
+% Invalid input detected at '^' marker.
+	
+dhcp-server(config)#ip dhcp excluded-address 192.168.10.1
+dhcp-server(config)#ip dhcp excluded-address 192.168.20.1
+dhcp-server(config)#ip dhcp pool 192.168.10.1
+dhcp-server(dhcp-config)#
+dhcp-server(dhcp-config)#network 192.168.10.0
+% Incomplete command.
+dhcp-server(dhcp-config)#network 192.168.10.0 255.255.255.0
+dhcp-server(dhcp-config)#default-router 192.168.10.1
+dhcp-server(dhcp-config)#dns-server 8.8.8.8
+dhcp-server(dhcp-config)#
+dhcp-server(dhcp-config)#exit
+dhcp-server(config)#ip dhcp pool 192.168.20.1
+dhcp-server(dhcp-config)#network 192.168.20.0
+% Incomplete command.
+dhcp-server(dhcp-config)#network 192.168.20.0 255.255.255.0
+dhcp-server(dhcp-config)#default-router 192.168.20.1
+dhcp-server(dhcp-config)#dns-server 8.8.8.8
+dhcp-server(dhcp-config)#
+dhcp-server(dhcp-config)#exit
+dhcp-server(config)#
+dhcp-server#
+%SYS-5-CONFIG_I: Configured from console by console
